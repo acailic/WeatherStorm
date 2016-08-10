@@ -1,5 +1,6 @@
 package com.example.android.weatherstorm.app;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,8 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,6 +100,17 @@ public class ForecastFragment extends Fragment {
         // Referenca ListView i kacenje na adapter.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String forecast = mForecastAdapter.getItem(position);
+                //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 
@@ -125,7 +139,7 @@ public class ForecastFragment extends Fragment {
             dayTime = new Time();
 
             String[] resultStrs = new String[numDays];
-            for(int i = 0; i < weatherArray.length(); i++) {
+            for (int i = 0; i < weatherArray.length(); i++) {
                 // Format "Dan, opis, najvisa/najniza temp"
                 String day;
                 String description;
@@ -135,7 +149,7 @@ public class ForecastFragment extends Fragment {
                 JSONObject dayForecast = weatherArray.getJSONObject(i);
                 long dateTime;
                 // Konvertovanje UTC Time, da covek razume( bude unix timesstamp)
-                dateTime = dayTime.setJulianDay(julianStartDay+i);
+                dateTime = dayTime.setJulianDay(julianStartDay + i);
                 day = getReadableDateString(dateTime);
 
                 // opis za vreme, duzina array 1, pa nulta pos
@@ -163,19 +177,20 @@ public class ForecastFragment extends Fragment {
          High/lows
          */
 
-        private String formatHighLows(double high, double low){
-            long roundedHigh=Math.round(high);
+        private String formatHighLows(double high, double low) {
+            long roundedHigh = Math.round(high);
             long roundedLow = Math.round(low);
             String highLowStr = roundedHigh + "/" + roundedLow;
             return highLowStr;
         }
+
         /*
         Konverzija date/time
          */
         private String getReadableDateString(long time) {
             // API vrati u sekundama, unix timestamp
             // prebacci se u milisekunde da bio se konvertovao u validan daatum
-            SimpleDateFormat dateFormat =new SimpleDateFormat("EEE MMM dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd");
             return dateFormat.format(time);
         }
 
@@ -270,6 +285,20 @@ public class ForecastFragment extends Fragment {
 
             // jedino ako bude error
             return null;
+        }
+
+        //kako bi se data prikazivala
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null) {
+                mForecastAdapter.clear();
+                for (String dayForecastStr : result) {
+                    mForecastAdapter.add(dayForecastStr);
+                }
+                /*
+                    Dobili smo podatke sa servera.
+                 */
+            }
         }
     }
 }
