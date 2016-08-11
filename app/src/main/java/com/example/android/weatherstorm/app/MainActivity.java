@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+       // Log.v(LOG_TAG, "in onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
@@ -74,4 +75,39 @@ public class MainActivity extends ActionBarActivity {
             Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed!");
         }
     }
+
+/*    @Override
+    protected void onStart() {
+        // bice vidljiva
+        Log.v(LOG_TAG, "in onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        // nastavice se
+        Log.v(LOG_TAG, "in onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        // ova pauzirana, druga aktivnost preuzima fokus
+        Log.v(LOG_TAG, "in onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        // nje vise vidljiva, stopirano
+        Log.v(LOG_TAG, "in onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        // destroy :D
+        Log.v(LOG_TAG, "in onDestroy");
+        super.onDestroy();
+    }*/
 }
