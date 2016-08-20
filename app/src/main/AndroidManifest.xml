@@ -42,6 +42,7 @@
         <provider
             android:authorities="com.example.android.weatherstorm.app"
             android:name=".data.WeatherProvider" />
+        <service android:name=".service.WeatherStormService"/>
     </application>
 
 </manifest>

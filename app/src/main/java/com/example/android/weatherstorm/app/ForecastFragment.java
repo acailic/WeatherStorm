@@ -1,5 +1,6 @@
 package com.example.android.weatherstorm.app;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.weatherstorm.app.data.WeatherContract;
+import com.example.android.weatherstorm.app.service.WeatherStormService;
 
 /**
  * Created by Aleksandar on 8/10/2016.
@@ -99,7 +101,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
          */
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
+            WeatherStormService weatherTask = new WeatherStormService( );
             //cita iz prefs, location and key
             updateWeather();
             return true;
@@ -190,10 +192,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     // cita iz prefs location and key
     private void updateWeather() {
-
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
-        String location = Utility.getPreferredLocation(getActivity());
-        weatherTask.execute(location);
+        Intent intent = new Intent(getActivity(), WeatherStormService.class);
+        intent.putExtra(WeatherStormService.LOCATION_QUERY_EXTRA,
+                Utility.getPreferredLocation(getActivity()));
+        getActivity().startService(intent);
     }
 
     @Override
