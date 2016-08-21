@@ -7,8 +7,10 @@ package com.example.android.weatherstorm.app.service;
 
 
 import android.app.IntentService;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -333,5 +335,17 @@ public class WeatherStormService extends IntentService {
             }
         }
         return;
+    }
+
+
+    public static class AlarmReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Intent sendIntent = new Intent(context, WeatherStormService.class);
+            sendIntent.putExtra(WeatherStormService.LOCATION_QUERY_EXTRA, intent.getStringExtra(WeatherStormService.LOCATION_QUERY_EXTRA));
+            context.startService(sendIntent);
+
+        }
     }
 }

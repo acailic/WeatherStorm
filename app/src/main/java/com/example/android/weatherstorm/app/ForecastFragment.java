@@ -1,5 +1,8 @@
 package com.example.android.weatherstorm.app;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -192,10 +195,16 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     // cita iz prefs location and key
     private void updateWeather() {
-        Intent intent = new Intent(getActivity(), WeatherStormService.class);
-        intent.putExtra(WeatherStormService.LOCATION_QUERY_EXTRA,
-                Utility.getPreferredLocation(getActivity()));
-        getActivity().startService(intent);
+        Intent alarmIntent = new Intent(getActivity(), WeatherStormService.AlarmReceiver.class);
+        alarmIntent.putExtra(WeatherStormService.LOCATION_QUERY_EXTRA, Utility.getPreferredLocation(getActivity()));
+
+        //Wrap in a pending intent which only fires once.
+        PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0,alarmIntent,PendingIntent.FLAG_ONE_SHOT);//getBroadcast(context, 0, i, 0);
+
+        AlarmManager am=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+
+        //Set the AlarmManager to wake up the system.
+        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pi);
     }
 
     @Override
