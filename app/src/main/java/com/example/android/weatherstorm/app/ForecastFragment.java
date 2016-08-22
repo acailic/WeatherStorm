@@ -1,9 +1,5 @@
 package com.example.android.weatherstorm.app;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.weatherstorm.app.data.WeatherContract;
-import com.example.android.weatherstorm.app.service.WeatherStormService;
+import com.example.android.weatherstorm.app.sync.WeatherStormSyncAdapter;
 
 /**
  * Created by Aleksandar on 8/10/2016.
@@ -104,7 +100,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
          */
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            WeatherStormService weatherTask = new WeatherStormService( );
+            //WeatherStormService weatherTask = new WeatherStormService( );
             //cita iz prefs, location and key
             updateWeather();
             return true;
@@ -195,7 +191,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     // cita iz prefs location and key
     private void updateWeather() {
-        Intent alarmIntent = new Intent(getActivity(), WeatherStormService.AlarmReceiver.class);
+       /* Intent alarmIntent = new Intent(getActivity(), WeatherStormService.AlarmReceiver.class);
         alarmIntent.putExtra(WeatherStormService.LOCATION_QUERY_EXTRA, Utility.getPreferredLocation(getActivity()));
 
         //Wrap in a pending intent which only fires once.
@@ -204,7 +200,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         AlarmManager am=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
 
         //Set the AlarmManager to wake up the system.
-        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pi);
+        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pi);*/
+
+        WeatherStormSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override
