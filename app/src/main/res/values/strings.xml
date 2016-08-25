@@ -6,6 +6,7 @@
     <string name="app_name">WeatherStorm</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="pref_splash">pref_splash</string>
 
     <!-- labela za refresh -->
     <string name="action_refresh" translatable="false">Refresh</string>
