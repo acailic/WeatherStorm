@@ -1,4 +1,4 @@
-package com.example.android.weatherstorm.app;
+package com.example.android.weatherstorm.app.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +7,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.android.weatherstorm.app.R;
+import com.example.android.weatherstorm.app.Utility;
+import com.example.android.weatherstorm.app.fragments.DetailFragment;
+import com.example.android.weatherstorm.app.fragments.ForecastFragment;
 
 public class MainActivity extends ActionBarActivity  implements ForecastFragment.Callback {
 
@@ -127,39 +132,4 @@ public class MainActivity extends ActionBarActivity  implements ForecastFragment
             startActivity(intent);
         }
     }
-
-/*    @Override
-    protected void onStart() {
-        // bice vidljiva
-        Log.v(LOG_TAG, "in onStart");
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        // nastavice se
-        Log.v(LOG_TAG, "in onResume");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        // ova pauzirana, druga aktivnost preuzima fokus
-        Log.v(LOG_TAG, "in onPause");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        // nje vise vidljiva, stopirano
-        Log.v(LOG_TAG, "in onStop");
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        // destroy :D
-        Log.v(LOG_TAG, "in onDestroy");
-        super.onDestroy();
-    }*/
 }

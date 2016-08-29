@@ -1,4 +1,4 @@
-package com.example.android.weatherstorm.app;
+package com.example.android.weatherstorm.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
+import com.example.android.weatherstorm.app.R;
+
 /**
  * Created by a.ilic on 8/25/2016.
  */

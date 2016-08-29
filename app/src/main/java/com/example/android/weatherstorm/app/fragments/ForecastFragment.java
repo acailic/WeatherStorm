@@ -1,4 +1,4 @@
-package com.example.android.weatherstorm.app;
+package com.example.android.weatherstorm.app.fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +18,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.android.weatherstorm.app.ForecastAdapter;
+import com.example.android.weatherstorm.app.R;
+import com.example.android.weatherstorm.app.Utility;
 import com.example.android.weatherstorm.app.data.WeatherContract;
 import com.example.android.weatherstorm.app.sync.WeatherStormSyncAdapter;
 
@@ -56,15 +59,15 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
     // must change.
-    static final int COL_WEATHER_ID = 0;
-    static final int COL_WEATHER_DATE = 1;
-    static final int COL_WEATHER_DESC = 2;
-    static final int COL_WEATHER_MAX_TEMP = 3;
-    static final int COL_WEATHER_MIN_TEMP = 4;
-    static final int COL_LOCATION_SETTING = 5;
-    static final int COL_WEATHER_CONDITION_ID = 6;
-    static final int COL_COORD_LAT = 7;
-    static final int COL_COORD_LONG = 8;
+    public static final int COL_WEATHER_ID = 0;
+    public static final int COL_WEATHER_DATE = 1;
+    public static final int COL_WEATHER_DESC = 2;
+    public static final int COL_WEATHER_MAX_TEMP = 3;
+    public static final int COL_WEATHER_MIN_TEMP = 4;
+    public static final int COL_LOCATION_SETTING = 5;
+    public static final int COL_WEATHER_CONDITION_ID = 6;
+    public static final int COL_COORD_LAT = 7;
+    public static final int COL_COORD_LONG = 8;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -217,24 +220,13 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         updateWeather();
     }*/
 
-    void onLocationChanged() {
+    public void onLocationChanged() {
         updateWeather();
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
     }
 
     // cita iz prefs location and key
     private void updateWeather() {
-       /* Intent alarmIntent = new Intent(getActivity(), WeatherStormService.AlarmReceiver.class);
-        alarmIntent.putExtra(WeatherStormService.LOCATION_QUERY_EXTRA, Utility.getPreferredLocation(getActivity()));
-
-        //Wrap in a pending intent which only fires once.
-        PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0,alarmIntent,PendingIntent.FLAG_ONE_SHOT);//getBroadcast(context, 0, i, 0);
-
-        AlarmManager am=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
-
-        //Set the AlarmManager to wake up the system.
-        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pi);*/
-
         WeatherStormSyncAdapter.syncImmediately(getActivity());
     }
 

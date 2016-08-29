@@ -27,7 +27,7 @@ public class WeatherContract {
 
     // Possible paths (appended to base content URI for possible URI's)
     // For instance, content://com.example.android.sunshine.app/weather/ is a valid path for
-    // looking at weather data. content://com.example.android.sunshine.app/givemeroot/ will fail,
+    // looking at weather data. content://com.example.android.weatherstorm.app/givemeroot/ will fail,
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
     public static final String PATH_WEATHER = "weather";

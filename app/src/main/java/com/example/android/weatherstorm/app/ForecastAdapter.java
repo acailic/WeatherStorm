@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.android.weatherstorm.app.fragments.ForecastFragment;
 /**
  * Created by Aleksandar on 8/11/2016.
  */

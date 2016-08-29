@@ -1,4 +1,4 @@
-package com.example.android.weatherstorm.app;
+package com.example.android.weatherstorm.app.fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,7 +10,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.weatherstorm.app.R;
+import com.example.android.weatherstorm.app.Utility;
 import com.example.android.weatherstorm.app.data.WeatherContract;
 import com.example.android.weatherstorm.app.data.WeatherContract.LocationEntry;
 import com.example.android.weatherstorm.app.data.WeatherContract.WeatherEntry;
@@ -37,7 +38,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private String mForecast;
 
     private static final int DETAIL_LOADER = 0;
-    static final String DETAIL_URI = "URI";
+    public static final String DETAIL_URI = "URI";
     private Uri mUri;
 
     private static final String[] DETAIL_COLUMNS = {
@@ -132,7 +133,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         return shareIntent;
     }
 
-    void onLocationChanged( String newLocation ) {
+    public void onLocationChanged( String newLocation ) {
         // replace the uri, since the location has changed
         Uri uri = mUri;
         if (null != uri) {

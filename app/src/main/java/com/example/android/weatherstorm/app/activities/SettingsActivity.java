@@ -1,4 +1,4 @@
-package com.example.android.weatherstorm.app;
+package com.example.android.weatherstorm.app.activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+
+import com.example.android.weatherstorm.app.R;
 
 /**
  * Created by Aleksandar on 8/10/2016.

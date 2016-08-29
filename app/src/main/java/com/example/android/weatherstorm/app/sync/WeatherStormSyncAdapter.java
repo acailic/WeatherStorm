@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -25,10 +26,11 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.example.android.weatherstorm.app.MainActivity;
 import com.example.android.weatherstorm.app.R;
 import com.example.android.weatherstorm.app.Utility;
+import com.example.android.weatherstorm.app.activities.MainActivity;
 import com.example.android.weatherstorm.app.data.WeatherContract;
+import com.example.android.weatherstorm.app.muzei.WeatherMuzeiSource;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +57,7 @@ public class WeatherStormSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
+    public static final String ACTION_DATA_UPDATED = "com.example.android.weatherstorm.app.ACTION_DATA_UPDATED";
 
     private static final String[] NOTIFY_WEATHER_PROJECTION = new String[]{
             WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,
@@ -301,6 +304,7 @@ public class WeatherStormSyncAdapter extends AbstractThreadedSyncAdapter {
 
                 getContext().getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI, WeatherContract.WeatherEntry.COLUMN_DATE + " <= ?",
                         new String[]{Long.toString(dayTime.setJulianDay(julianStartDay - 1))});
+                updateMuzei();
                 notifyWeather();
             }
 
@@ -496,5 +500,15 @@ public class WeatherStormSyncAdapter extends AbstractThreadedSyncAdapter {
                 context.getString(R.string.content_authority), bundle);
     }
 
+
+    private void updateMuzei() {
+        // Muzei is only compatible with Jelly Bean MR1+ devices, so there's no need to update the
+        // Muzei background on lower API level devices
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Context context = getContext();
+            context.startService(new Intent(ACTION_DATA_UPDATED)
+                    .setClass(context, WeatherMuzeiSource.class));
+        }
+    }
 
 }

@@ -1,10 +1,13 @@
-package com.example.android.weatherstorm.app;
+package com.example.android.weatherstorm.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.android.weatherstorm.app.fragments.DetailFragment;
+import com.example.android.weatherstorm.app.R;
 
 /**
  * Created by Aleksandar on 8/10/2016.
